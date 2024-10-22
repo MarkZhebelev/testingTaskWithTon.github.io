@@ -22,7 +22,7 @@ const TransactionPage = () => {
     async function transaction() {
         const countTon = countTonRef.current?.value;
         const addressHolder = addressHolderRef.current?.value;
-
+        const amountInNanoTon = Number(countTon) * 1e9;
         if (!countTon || !addressHolder) {
             alert("Заполните все поля");
             return;
@@ -33,7 +33,7 @@ const TransactionPage = () => {
             messages: [
                 {
                     address: addressHolder,
-                    amount: countTon,
+                    amount: amountInNanoTon.toString(),
                 },
             ],
         };

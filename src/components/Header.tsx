@@ -77,7 +77,7 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
 
         fetchData();
 
-    }, [balanceTon, isConnected, setBalanceTon, tonConnectUI.wallet?.account.publicKey]);
+    }, [balanceTon, isConnected, setBalanceTon]);
 
     const handleConnect = async () => {
         if (!isConnected) {
