@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Проект на Next.js
 
-## Getting Started
+## Запуск проекта
 
-First, run the development server:
+Чтобы запустить проект, используйте команду:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Описание скриптов в `package.json`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+В `package.json` определены следующие скрипты:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **`dev`**:
+  ```bash
+  next dev
+  ```
+  Запускает проект в режиме разработки. Это позволит вам видеть изменения в реальном времени.
 
-## Learn More
+- **`build`**:
+  ```bash
+  next build
+  ```
+  Собирает проект для продакшена.
 
-To learn more about Next.js, take a look at the following resources:
+- **`start`**:
+  ```bash
+  concurrently "node server.js" "npm run dev"
+  ```
+  Запускает сервер (сервер Node.js) и одновременно запускает проект в режиме разработки. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **`lint`**:
+  ```bash
+  next lint
+  ```
+  Проверяет код на наличие ошибок и несоответствий стандартам с помощью встроенного линтера.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+##  Для работы с проектом необходимо создать новый аккаунт в приложении TonKeeper с тестовым кошельком!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Маршруты
+
+- Чтобы подключиться к кошельку, используйте следующий маршрут:
+  ```
+  /wallet
+  ```
+
+- Для перехода на страницу транзакций используйте:
+  ```
+  /transaction
+  ```
+

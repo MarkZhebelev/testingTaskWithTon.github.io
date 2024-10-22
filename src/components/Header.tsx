@@ -1,6 +1,6 @@
 'use client'
 import {useTonConnectUI} from '@tonconnect/ui-react';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import styled from 'styled-components';
 import {useAppContext} from '@/context/AppContext';
 
@@ -12,21 +12,25 @@ interface isWhatHeader {
 export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
     const [tonConnectUI] = useTonConnectUI();
     const {isConnected, setIsConnected, balanceTon, setBalanceTon} = useAppContext()
-    const [tonImg, setTonImg] = useState<string | null>(null)
 
     useEffect(() => {
+        const checkWalletConnection = async () => {
+            const wallet = tonConnectUI.wallet;
+            setIsConnected(!!wallet);
+        };
+
         const unsubscribe = tonConnectUI.onStatusChange((wallet) => {
             setIsConnected(!!wallet);
         });
 
+        checkWalletConnection();
+
         return () => unsubscribe();
-    }, [tonConnectUI]);
+    }, [setIsConnected, tonConnectUI]);
 
     useEffect(() => {
         const fetchData = async () => {
             if (isConnected) {
-                console.log('tonConnectUI', tonConnectUI);
-                console.log('balanceTon',balanceTon)
                 const getInfoAddress = async (walletAddress: string) => {
                     try {
                         const response = await fetch(`https://testnet.toncenter.com/api/v2/getAddressInformation?address=${walletAddress}`);
@@ -59,6 +63,7 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
                 if (walletAddress && balanceTon === null) {
                     try {
                         const response = await retryFetch(walletAddress, 3, 3000);
+                        console.log('API Response:', response);
 
                         if (response && response.result) {
                             setBalanceTon(response.result.balance);
@@ -67,18 +72,12 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
                         console.error('Failed to fetch balance after retries:', error);
                     }
                 }
-
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
-                const walletIcon = tonConnectUI.wallet?.imageUrl;
-                setTonImg(walletIcon);
-
             }
         };
 
         fetchData();
 
-    }, [isConnected, setBalanceTon, tonConnectUI.wallet]);
+    }, [balanceTon, isConnected, setBalanceTon, tonConnectUI.wallet?.account.publicKey]);
 
     const handleConnect = async () => {
         if (!isConnected) {
@@ -96,8 +95,8 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
                 await tonConnectUI.disconnect();
                 if (setIsConnected) {
                     setIsConnected(false);
+                    setBalanceTon(null);
                 }
-                setBalanceTon(null);
             } catch (error) {
                 console.error('Error during wallet disconnection:', error);
             }
@@ -116,7 +115,7 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
                                 display: 'flex',
                                 justifyContent: 'center',
                                 gap: '5px'
-                            }}> {balanceTon} <img width='20px' height='20px' src={tonImg !== null ? `${tonImg}` : '' }
+                            }}> {balanceTon} <img width='20px' height='20px' src='https://tonkeeper.com/assets/tonconnect-icon.png'
                                                     alt="imgTon"/></div>
                             : <div>Loading...</div>}</BalanceDisplay>
                 )}
@@ -140,7 +139,7 @@ const HeaderWrapper = styled.header`
     background-color: #007bff;
     padding: 15px 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 `;
 
@@ -165,7 +164,7 @@ const BalanceDisplay = styled.div`
     justify-content: left;
     align-items: center;
     flex-wrap: wrap;
-
+    gap: 5px;
 `;
 
 const ConnectButton = styled.button`
@@ -177,8 +176,11 @@ const ConnectButton = styled.button`
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 3s ease;
-
+    margin-left: auto;
     &:hover {
         background-color: #f1f1f1;
+    }
+    @media (max-width: 300px) {
+        margin-left: inherit;
     }
 `;
