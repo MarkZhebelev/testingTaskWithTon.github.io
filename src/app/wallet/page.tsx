@@ -1,12 +1,12 @@
 'use client'
-import React, {useState} from 'react';
-import {Header} from '@/components/Header';
+import React, { useState } from 'react';
+import { Header } from '@/components/Header';
 import styled from 'styled-components';
-import {useTonAddress} from '@tonconnect/ui-react';
-import {useAppContext} from '@/context/AppContext';
+import { useTonAddress } from '@tonconnect/ui-react';
+import { useAppContext } from '@/context/AppContext';
 
 const WalletPage = () => {
-    const {isConnected} = useAppContext();
+    const { isConnected } = useAppContext();
     const userFriendlyAddress = useTonAddress();
     const shortenedAddress = userFriendlyAddress
         ? `${userFriendlyAddress.slice(0, 5)}...${userFriendlyAddress.slice(-5)}`
@@ -26,7 +26,7 @@ const WalletPage = () => {
         <Wrapper>
             <Header isWallet={true} />
             <Content>
-                {isConnected ? (
+                {isConnected  ? (
                     <AddressBlock>
                         <Title>Wallet Address</Title>
                         <AddressText>{shortenedAddress}</AddressText>

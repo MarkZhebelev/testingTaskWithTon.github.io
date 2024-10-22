@@ -83,7 +83,6 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
         if (!isConnected) {
             try {
                 await tonConnectUI.openSingleWalletModal('tonkeeper');
-                setIsConnected(true)
             } catch (error) {
                 console.error('Error during wallet connection:', error);
             }
@@ -103,11 +102,11 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
         }
     };
 
-
+    const isWalletConnected = isConnected && tonConnectUI.wallet;
     return (
         <HeaderWrapper>
             <HeaderContent>
-                {isConnected && (
+                {isWalletConnected && (
                     <BalanceDisplay>
                         <div>Balance:</div>
                         {balanceTon !== null ?
@@ -120,8 +119,8 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
                             : <div>Loading...</div>}</BalanceDisplay>
                 )}
                 {isWallet ? (
-                        <ConnectButton onClick={isConnected ? handleDisconnect : handleConnect}>
-                            {isConnected ? 'Disconnect' : 'Connect'}
+                        <ConnectButton onClick={isWalletConnected ? handleDisconnect : handleConnect}>
+                            {isWalletConnected ? 'Disconnect' : 'Connect'}
                         </ConnectButton>
                     ) :
                     (
