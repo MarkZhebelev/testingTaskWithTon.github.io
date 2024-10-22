@@ -37,7 +37,7 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
                     }
                 };
                 const retryFetch = async (walletAddress: string, retries: number, delay: number) => {
-                    // написал цикл для повторных попыток запроса с задержкой при 429 статусе ответа
+                    // цикл для повторных попыток запроса с задержкой при 429 статусе ответа
                     for (let i = 0; i < retries; i++) {
                         const response = await getInfoAddress(walletAddress);
 
@@ -47,7 +47,8 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
                             console.warn(`Retrying... Attempt ${i + 1}`);
                             await new Promise(resolve => setTimeout(resolve, delay));
                         } else {
-                            return response; // Другие ошибки не требуют повторной попытки
+                            // Для других ошибок не нужно вызывать повторный запрос
+                            return response;
                         }
                     }
                     throw new Error('Too many retries');
@@ -57,7 +58,7 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
 
                 if (walletAddress && balanceTon === null) {
                     try {
-                        const response = await retryFetch(walletAddress, 3, 3000); // 5 попыток с задержкой 2000мс (2 сек)
+                        const response = await retryFetch(walletAddress, 3, 3000);
 
                         if (response && response.result) {
                             setBalanceTon(response.result.balance);
@@ -89,15 +90,14 @@ export const Header = ({isWallet, handleBackRouter}: isWhatHeader) => {
             }
         }
     };
-    // Функция для отключения кошелька
     const handleDisconnect = async () => {
         if (isConnected) {
             try {
-                await tonConnectUI.disconnect(); // Отключение кошелька
+                await tonConnectUI.disconnect();
                 if (setIsConnected) {
                     setIsConnected(false);
                 }
-                setBalanceTon(null); // Сброс баланса при отключении
+                setBalanceTon(null);
             } catch (error) {
                 console.error('Error during wallet disconnection:', error);
             }

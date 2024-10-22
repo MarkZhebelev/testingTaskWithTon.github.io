@@ -10,7 +10,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <html lang="en">
         <body>
         <TonConnectUIProvider
-            manifestUrl="https://MarkZhebelev.github.io/testingTaskWithTon.github.io/tonconnect-manifest.json"
+            manifestUrl="http://localhost:3001/tonconnect-manifest.json"
             uiPreferences={{theme: THEME.DARK}}
         >
             <StyledJsxRegistry>
