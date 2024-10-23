@@ -148,7 +148,7 @@ const HeaderContent = styled.div`
     align-items: center;
     color: white;
     gap: 5px;
-    @media (max-width: 300px) {
+    @media (max-width: 320px) {
         flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
@@ -156,6 +156,9 @@ const HeaderContent = styled.div`
 `;
 
 const BalanceDisplay = styled.div`
+    background-color: white;
+    color: black;
+    border-radius: 8px;
     font-size: 1.2rem;
     font-weight: 500;
     display: flex;
@@ -164,6 +167,7 @@ const BalanceDisplay = styled.div`
     align-items: center;
     flex-wrap: wrap;
     gap: 5px;
+    padding: 8px 10px;
 `;
 
 const ConnectButton = styled.button`
@@ -179,7 +183,7 @@ const ConnectButton = styled.button`
     &:hover {
         background-color: #f1f1f1;
     }
-    @media (max-width: 300px) {
+    @media (max-width: 320px) {
         margin-left: inherit;
     }
 `;

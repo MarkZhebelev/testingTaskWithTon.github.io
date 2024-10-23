@@ -1,5 +1,5 @@
 {
-  "url": "https://MarkZhebelev.github.io/testingTaskWithTon.github.io",
+  "url": "http://localhost:3001",
   "name": "Test Project",
   "iconUrl": "https://tonkeeper.com/assets/tonconnect-icon.png",
   "network": "testnet"

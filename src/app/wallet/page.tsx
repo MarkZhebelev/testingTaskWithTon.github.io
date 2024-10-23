@@ -81,7 +81,7 @@ const AddressBlock = styled.div`
 
 const AddressText = styled.div`
     background-color: #fff;
-    color: #333;
+    color: #33333385;
     padding: 10px 20px;
     width: 100%;
     font-size: 1rem;

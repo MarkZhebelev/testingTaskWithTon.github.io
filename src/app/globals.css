@@ -26,7 +26,7 @@ body {
 }
 
 * {
-  /*!*outline: 3px solid green !important;*! для проверки верстки*/
+  /*outline: 3px solid green !important;*/
   box-sizing: border-box;
   padding: 0;
   margin: 0;
