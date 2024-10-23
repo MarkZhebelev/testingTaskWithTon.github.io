@@ -58,6 +58,11 @@ const Wrapper = styled.div`
 const Content = styled.div`
     width: 100%;
     margin-top: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    height: 100vh;
+    border: 2px solid #007bff;
 `;
 
 const Title = styled.h2`
@@ -78,8 +83,10 @@ const AddressText = styled.div`
     background-color: #fff;
     color: #333;
     padding: 10px 20px;
+    width: 100%;
     font-size: 1rem;
     border-radius: 8px;
+    border: 1px solid #007bff;
     margin-bottom: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -90,6 +97,7 @@ const CopyButton = styled.button`
     background-color: #007bff;
     color: white;
     border: none;
+    width: 100%;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
